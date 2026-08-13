@@ -1,0 +1,67 @@
+{% extends 'base.html' %} 
+ 
+{% block title %} Login {% endblock %} 
+ 
+{% block content %} 
+ 
+<br/> 
+ 
+<!-- Uses POST method to send data to the server --> 
+<form method = "POST"> 
+ 
+    <!-- Centres the form --> 
+    <div class = "row justify-content-center"> 
+        <!-- Adjusts the width of the text fields and their labels --> 
+         <div class = "col-md-7"> 
+ 
+            <br/> 
+ 
+            <!-- Login header --> 
+            <h2 align = "center"> Login </h2> 
+ 
+            <br/> 
+            
+            <!-- Text field for username --> 
+            <label for = "username"> Username </label> 
+            <input type = "text" class = "form-control" name = "username" placeholder = "Enter Username"> 
+ 
+            <br/> 
+ 
+            <!-- Text field for password --> 
+            <label for = "password"> Password </label> 
+            <input type = "password" class = "form-control" name = "password" placeholder = "Enter Password"> 
+ 
+            <br/> 
+             
+            <!-- Centres login button --> 
+            <div align = "center"> 
+                <!-- Login button --> 
+                <button type = "submit" class = "btn btn-warning"> Login </button> 
+            </div> 
+             
+        </div> 
+    </div> 
+</form> 
+ 
+<!-- Centres the flash message --> 
+<div align = "center"> 
+    <br/> 
+ 
+    <!-- Displays flash messages --> 
+    {% with messages = get_flashed_messages(with_categories = true) %} 
+ 
+    <!-- Checks if there are any flash messages --> 
+    {% if messages %} 
+ 
+    <!-- Loops through all of the flash messages --> 
+    {% for category, message in messages %} 
+ 
+    <!-- Small red text that reads out the error message --> 
+    <small class = "text-danger"> {{message}} </small> 
+ 
+    {% endfor %} {% endif %} {% endwith %} 
+ 
+</div> 
+ 
+ 
+{% endblock %} 
