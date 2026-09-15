@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block title %} HomePage {% endblock %}
+
+{% block content %}
+
+<br/>
+<br/>
+
+<!-- Creates a row so that the shot tracker and recent analytics box can be next to each other -->
+<div class = "row">
+    
+    <div class = "col-md-6">
+
+        <div class="box shadow py-3 px-3 h-100">
+            
+            <div align = "center">
+                
+                <h4> Shot Tracker </h4>
+
+            </div>
+            
+            <!-- Uses a POST method and allows files to be uploaded properly -->
+            <form method = "POST" enctype = "multipart/form-data">
+
+                                                
+                <label for = "shot_type" class = "form-label"> Select Shot Type </label>
+
+                
+                <select name = "shot_type" class = "form-select" required>
+
+                    
+                    <option disabled selected>  </option>
+                    <option value = "Layup"> Layup </option>
+                    <option value = "Free Throw"> Free Throw </option>
+                    <option value = "Mid Range"> Mid Range </option>
+                    <option value = "Three Pointer"> Three Pointer </option>
+
+                </select>
+                
+                <br/>
+
+                
+                <label for = "video" class = "form-label"> Upload Video </label>
+
+                
+                <input type = "file" name = "video" class = "form-control" accept = "video/*" required>
+
+                
+                <div align = "center">
+                    <button type = "submit" class = " btn btn-warning mt-4 "> Upload </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <div class = "col-md-6">
+
+        
+        <div class = "box shadow py-3 px-3 h-100">
+            
+            
+            <div align = "center">
+
+                
+                <h4> Recent Analytics </h4>
+
+            </div>
+
+            <!-- If an error was returned by the shot tracker -->
+            {% if processing_error %}
+                <br/>
+                <br/>
+                <br/>
+
+                
+                <div align = "center">
+                    <small class = "text-danger"> {{processing_error}} </small>
+                </div>
+
+                <br/>
+                <br/>
+
+            
+            {% elif new_stats %}
+
+                
+                <ul class = "list-unstyled">
+                    <br/>
+
+                    
+                    <li class = "mb-4"> Shots Attempted: {{new_stats.shot_count}} </li>        
+                    <li class = "mb-4"> Shots Made: {{new_stats.make_count}} </li> 
+                    <li class = "mb-4"> Field Goal Percentage: {{new_stats.field_goal}} </li>
+                    <li class = "mb-4"> NBA Player Comparison: {{nba_comparison}} </li>
+
+                </ul>
+
+            {% else %}
+                <br/>
+                <br/>
+                <br/>
+
+                
+                <div align = "center">
+                    <small class = "text-danger"> No recent analytics available </small>
+                </div>
+
+                <br/>
+                <br/>
+
+            {% endif %}
+        
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+
+<div class = "col-md-12">
+
+    
+    <div class = "box shadow py-3 px-3 h-100">
+        
+        
+        <div align = "center">
+
+            
+            <h4> All-Time Analytics </h4>
+        </div>
+
+        
+        <form  method = "GET">
+            
+            
+            <div class = "container">  
+                
+                <div class = "row">
+                    
+                    <div class = "col-md-3">
+                             
+                        <label for = "alltime_shot_type" class = "form-label"> Select Shot Type </label>
+
+                        
+                        <select name = "alltime_shot_type" class = "form-select" required>
+
+                            
+                            <option disabled selected>  </option>
+                            <option value = "Layup"> Layup </option>
+                            <option value = "Free Throw"> Free Throw </option>
+                            <option value = "Mid Range"> Mid Range </option>
+                            <option value = "Three Pointer"> Three Pointer </option>
+
+                        </select>
+                    </div>
+
+                    
+                    <div class="col-md-4 d-flex align-items-end">
+                        
+                        <button type = "submit" class = " btn btn-warning"> Submit </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <br/>
+
+        
+        {% if alltime_shot_type%}
+
+            
+            <div class = "container">  
+                
+                <ul class = "list-unstyled">
+            
+                    <li class = "mb-4"> Shot Type: {{alltime_shot_type}}</li>
+                    <li class = "mb-4"> Shots Attempted: {{alltime_stats.total_shot_attempts}} </li>        
+                    <li class = "mb-4"> Shots Made: {{alltime_stats.total_shot_makes}} </li> 
+                    <li class = "mb-4"> Field Goal Percentage: {{alltime_stats.alltime_field_goal}} </li>
+                    <li class = "mb-4"> NBA Player Comparison: {{alltime_stats.alltime_nba_comparison}} </li>
+                </ul>
+            </div>
+            
+        {% else %}
+            
+            
+            <div align = "center">
+                <small class = "text-danger"> Please select a shot type </small>
+            </div>
+            
+            <br/>
+            <br/>
+        
+        {% endif %}
+        
+        </div>
+        </div>
+        
+{% endblock %}
+        
+
+           
